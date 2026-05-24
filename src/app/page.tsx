@@ -264,11 +264,11 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {items.map((product) => (
                   <div key={product.name} onClick={() => setSelectedProduct(product)} className="glass-card rounded-lg p-4 cursor-pointer transition-all">
-                    <p className="text-sm font-medium text-gray-900">{product.name}</p>
+                    <p className="text-sm font-medium text-white">{product.name}</p>
                     <div className="mt-2 flex flex-wrap gap-1">
-                      {product.gate && <span className="inline-flex items-center rounded-full bg-indigo-100 border border-indigo-200 px-2 py-0.5 text-xs text-indigo-700">Gate {product.gate}</span>}
-                      {product.productType && <span className="inline-flex items-center rounded-full bg-green-100 border border-green-200 px-2 py-0.5 text-xs text-green-700">{product.productType}</span>}
-                      {product.therapeuticPlatform && <span className="inline-flex items-center rounded-full bg-purple-100 border border-purple-200 px-2 py-0.5 text-xs text-purple-700">{product.therapeuticPlatform}</span>}
+                      {product.gate && <span className="inline-flex items-center rounded-full bg-indigo-500/20 border border-indigo-500/30 px-2 py-0.5 text-xs text-indigo-300">Gate {product.gate}</span>}
+                      {product.productType && <span className="inline-flex items-center rounded-full bg-green-500/20 border border-green-500/30 px-2 py-0.5 text-xs text-green-300">{product.productType}</span>}
+                      {product.therapeuticPlatform && <span className="inline-flex items-center rounded-full bg-purple-500/20 border border-purple-500/30 px-2 py-0.5 text-xs text-purple-300">{product.therapeuticPlatform}</span>}
                     </div>
                     <p className="text-xs text-gray-500 mt-2">{product.manufacturer}</p>
                   </div>

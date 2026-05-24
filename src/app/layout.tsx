@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Blueroot Product Grid",
-  description: "Product development portal",
+  title: "Blueroot Health | Product Grid",
+  description: "Blueroot Health product development portal",
 };
 
 export default function RootLayout({

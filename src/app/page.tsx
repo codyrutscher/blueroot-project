@@ -226,7 +226,8 @@ export default function Home() {
     <>
       <Navbar />
       <main className="flex-1 app-bg p-8" onClick={() => setOpenDropdown(null)}>
-        <h1 className="text-2xl font-bold text-white mb-6">Product Grid</h1>
+        <h1 className="text-2xl font-bold text-white mb-2">Product Grid</h1>
+        <p className="text-sm text-gray-400 mb-6">{products.length} products across {[...new Set(products.map(p => p.brand))].length} brands</p>
 
         {/* Filters */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8" onClick={(e) => e.stopPropagation()}>

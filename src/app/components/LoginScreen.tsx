@@ -9,8 +9,8 @@ export default function LoginScreen() {
     <div className="app-bg flex items-center justify-center p-4">
       <div className="modal-glass rounded-2xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Blueroot</h1>
-          <p className="text-sm text-gray-400 mt-2">Product Development Portal</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Blueroot Health</h1>
+          <p className="text-sm text-gray-400 mt-2">BRH New Products Portal</p>
         </div>
 
         <p className="text-sm text-gray-300 mb-4">Select your account to log in:</p>

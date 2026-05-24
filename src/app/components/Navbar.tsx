@@ -17,9 +17,7 @@ export default function Navbar() {
     <>
       <nav className="nav-glass px-6 py-3 flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center gap-3">
-          <span className="text-lg font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Blueroot</span>
-          <span className="text-sm text-gray-600">|</span>
-          <span className="text-sm text-gray-400">Product Grid</span>
+          <span className="text-lg font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Blueroot Health</span>
         </div>
 
         <div className="flex items-center gap-2">

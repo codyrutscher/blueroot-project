@@ -10,6 +10,11 @@ import RawMaterialsPage from "./components/RawMaterialsPage";
 import GateApprovalPage from "./components/GateApprovalPage";
 import DashboardPage from "./components/DashboardPage";
 import MessagePage from "./components/MessagePage";
+import FormulationPage from "./components/FormulationPage";
+import SampleEvaluationPage from "./components/SampleEvaluationPage";
+import PFSPage from "./components/PFSPage";
+import TestingPage from "./components/TestingPage";
+import SubstantiationPage from "./components/SubstantiationPage";
 import { mensHairGantt, GanttTask } from "./ganttData";
 
 export interface Product {
@@ -55,7 +60,7 @@ const filterConfig: { key: FilterKey; label: string; options: string[] }[] = [
   { key: "productType", label: "Product Type", options: ["Innovation", "New Product", "Renovation/Extension/Refresh"] },
 ];
 
-type PageView = "grid" | "gantt" | "financials" | "rawMaterials" | "gateApproval" | "dashboard" | "message";
+type PageView = "grid" | "gantt" | "financials" | "rawMaterials" | "gateApproval" | "dashboard" | "message" | "formulation" | "sampleEvaluation" | "pfs" | "testing" | "substantiation";
 
 function parseDate(dateStr: string): Date {
   const parts = dateStr.split("/");
@@ -124,6 +129,11 @@ export default function Home() {
   if (currentPage === "gateApproval" && selectedProduct) return <><Navbar /><GateApprovalPage product={selectedProduct} onBack={() => setCurrentPage("grid")} /></>;
   if (currentPage === "dashboard") return <><Navbar /><DashboardPage onBack={() => setCurrentPage("grid")} /></>;
   if (currentPage === "message" && selectedProduct) return <><Navbar /><MessagePage product={selectedProduct} onBack={() => setCurrentPage("grid")} /></>;
+  if (currentPage === "formulation" && selectedProduct) return <><Navbar /><FormulationPage product={selectedProduct} onBack={() => setCurrentPage("grid")} /></>;
+  if (currentPage === "sampleEvaluation" && selectedProduct) return <><Navbar /><SampleEvaluationPage product={selectedProduct} onBack={() => setCurrentPage("grid")} /></>;
+  if (currentPage === "pfs" && selectedProduct) return <><Navbar /><PFSPage product={selectedProduct} onBack={() => setCurrentPage("grid")} /></>;
+  if (currentPage === "testing" && selectedProduct) return <><Navbar /><TestingPage product={selectedProduct} onBack={() => setCurrentPage("grid")} /></>;
+  if (currentPage === "substantiation" && selectedProduct) return <><Navbar /><SubstantiationPage product={selectedProduct} onBack={() => setCurrentPage("grid")} /></>;
 
   const filtered = products.filter((p) => {
     if (filters.brand.length > 0 && !filters.brand.includes(p.brand)) return false;
@@ -155,7 +165,7 @@ export default function Home() {
               <input type="date" value={dueDateInput} onChange={(e) => setDueDateInput(e.target.value)} className="dark-input w-full rounded px-3 py-2 text-sm" />
               {dueDateTasks.length > 0 && (
                 <div className="mt-2 max-h-32 overflow-auto space-y-1">
-                  {dueDateTasks.map(t => <div key={t.taskNum} className="text-xs text-gray-300 flex justify-between"><span>#{t.taskNum} {t.task}</span><span className="text-gray-500">{t.endDate}</span></div>)}
+                  {dueDateTasks.map(t => <div key={t.taskNum} className="text-xs text-gray-300 flex justify-between"><span>{t.task}</span><span className="text-gray-500 flex-none ml-2">{t.endDate}</span></div>)}
                 </div>
               )}
               {dueDateInput && dueDateTasks.length === 0 && <p className="text-xs text-gray-500 mt-2">No tasks due in that window.</p>}
@@ -165,7 +175,7 @@ export default function Home() {
               <input type="text" value={personInput} onChange={(e) => setPersonInput(e.target.value)} className="dark-input w-full rounded px-3 py-2 text-sm" placeholder="Enter name..." />
               {personTasks.length > 0 && (
                 <div className="mt-2 max-h-32 overflow-auto space-y-1">
-                  {personTasks.map(t => <div key={t.taskNum} className="text-xs text-gray-300 flex justify-between"><span>#{t.taskNum} {t.task}</span><span className="text-gray-500">Due: {t.endDate}</span></div>)}
+                  {personTasks.map(t => <div key={t.taskNum} className="text-xs text-gray-300 flex justify-between"><span>{t.task}</span><span className="text-gray-500 flex-none ml-2">Due: {t.endDate}</span></div>)}
                 </div>
               )}
               {personInput && personTasks.length === 0 && <p className="text-xs text-gray-500 mt-2">No outstanding tasks for that person.</p>}
@@ -222,13 +232,17 @@ export default function Home() {
                   <span className="product-tag bg-cyan-500/15 border border-cyan-500/25 text-cyan-300">Mfg: {product.manufacturingStatus}</span>
                 </div>
 
-                {/* Action buttons */}
-                <div className="grid grid-cols-2 gap-2">
-                  <button onClick={() => navigateTo("gantt", product)} className="px-2 py-1.5 text-xs font-medium bg-indigo-600/80 hover:bg-indigo-500 text-white rounded transition-colors">Gantt Chart</button>
-                  <button onClick={() => navigateTo("financials", product)} className="px-2 py-1.5 text-xs font-medium bg-emerald-600/80 hover:bg-emerald-500 text-white rounded transition-colors">Financials</button>
-                  <button onClick={() => navigateTo("rawMaterials", product)} className="px-2 py-1.5 text-xs font-medium bg-amber-600/80 hover:bg-amber-500 text-white rounded transition-colors">Raw Materials</button>
+                {/* Action buttons - 3 rows of 3 */}
+                <div className="grid grid-cols-3 gap-2">
                   <button onClick={() => navigateTo("gateApproval", product)} className="px-2 py-1.5 text-xs font-medium bg-rose-600/80 hover:bg-rose-500 text-white rounded transition-colors">Gate Approval</button>
-                  <button onClick={() => navigateTo("message", product)} className="col-span-2 px-2 py-1.5 text-xs font-medium bg-sky-600/80 hover:bg-sky-500 text-white rounded transition-colors">Message</button>
+                  <button onClick={() => navigateTo("formulation", product)} className="px-2 py-1.5 text-xs font-medium bg-violet-600/80 hover:bg-violet-500 text-white rounded transition-colors">Formulation</button>
+                  <button onClick={() => navigateTo("rawMaterials", product)} className="px-2 py-1.5 text-xs font-medium bg-amber-600/80 hover:bg-amber-500 text-white rounded transition-colors">Raw Materials</button>
+                  <button onClick={() => navigateTo("financials", product)} className="px-2 py-1.5 text-xs font-medium bg-emerald-600/80 hover:bg-emerald-500 text-white rounded transition-colors">Financials</button>
+                  <button onClick={() => navigateTo("sampleEvaluation", product)} className="px-2 py-1.5 text-xs font-medium bg-pink-600/80 hover:bg-pink-500 text-white rounded transition-colors">Sample Eval</button>
+                  <button onClick={() => navigateTo("substantiation", product)} className="px-2 py-1.5 text-xs font-medium bg-teal-600/80 hover:bg-teal-500 text-white rounded transition-colors">Substantiation</button>
+                  <button onClick={() => navigateTo("gantt", product)} className="px-2 py-1.5 text-xs font-medium bg-indigo-600/80 hover:bg-indigo-500 text-white rounded transition-colors">Gantt Chart</button>
+                  <button onClick={() => navigateTo("testing", product)} className="px-2 py-1.5 text-xs font-medium bg-orange-600/80 hover:bg-orange-500 text-white rounded transition-colors">Testing</button>
+                  <button onClick={() => navigateTo("message", product)} className="px-2 py-1.5 text-xs font-medium bg-sky-600/80 hover:bg-sky-500 text-white rounded transition-colors">Message</button>
                 </div>
               </div>
             ))}

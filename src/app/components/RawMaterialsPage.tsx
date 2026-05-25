@@ -6,20 +6,17 @@ import { Product } from "../page";
 interface RawMaterial {
   id: number;
   ingredient: string;
+  rmCode: string;
   supplier: string;
-  partNumber: string;
-  costPerKg: string;
-  qtyPerBatch: string;
-  leadTimeDays: string;
-  status: string;
-  notes: string;
+  newSupplier: string;
+  qualifyingDocsNeeded: string;
 }
 
-const statusOptions = ["Approved", "Pending Approval", "Sourcing", "Not Started"];
+const newSupplierOptions = ["Yes", "No"];
 
 export default function RawMaterialsPage({ product, onBack }: { product: Product; onBack: () => void }) {
   const [materials, setMaterials] = useState<RawMaterial[]>([
-    { id: 1, ingredient: "", supplier: "", partNumber: "", costPerKg: "", qtyPerBatch: "", leadTimeDays: "", status: "Not Started", notes: "" },
+    { id: 1, ingredient: "", rmCode: "", supplier: "", newSupplier: "No", qualifyingDocsNeeded: "" },
   ]);
 
   function updateMaterial(id: number, field: keyof RawMaterial, value: string) {
@@ -28,7 +25,7 @@ export default function RawMaterialsPage({ product, onBack }: { product: Product
 
   function addRow() {
     const nextId = materials.length > 0 ? Math.max(...materials.map((m) => m.id)) + 1 : 1;
-    setMaterials((prev) => [...prev, { id: nextId, ingredient: "", supplier: "", partNumber: "", costPerKg: "", qtyPerBatch: "", leadTimeDays: "", status: "Not Started", notes: "" }]);
+    setMaterials((prev) => [...prev, { id: nextId, ingredient: "", rmCode: "", supplier: "", newSupplier: "No", qualifyingDocsNeeded: "" }]);
   }
 
   function deleteRow(id: number) {
@@ -48,15 +45,12 @@ export default function RawMaterialsPage({ product, onBack }: { product: Product
         <table className="w-full text-xs">
           <thead>
             <tr className="border-b border-white/10">
-              <th className="text-left px-3 py-2 text-gray-400 font-medium">#</th>
-              <th className="text-left px-3 py-2 text-gray-400 font-medium">Ingredient</th>
+              <th className="text-left px-3 py-2 text-gray-400 font-medium w-8">#</th>
+              <th className="text-left px-3 py-2 text-gray-400 font-medium">Ingredients</th>
+              <th className="text-left px-3 py-2 text-gray-400 font-medium">RM Code</th>
               <th className="text-left px-3 py-2 text-gray-400 font-medium">Supplier</th>
-              <th className="text-left px-3 py-2 text-gray-400 font-medium">Part #</th>
-              <th className="text-left px-3 py-2 text-gray-400 font-medium">Cost/kg ($)</th>
-              <th className="text-left px-3 py-2 text-gray-400 font-medium">Qty/Batch</th>
-              <th className="text-left px-3 py-2 text-gray-400 font-medium">Lead Time (days)</th>
-              <th className="text-left px-3 py-2 text-gray-400 font-medium">Status</th>
-              <th className="text-left px-3 py-2 text-gray-400 font-medium">Notes</th>
+              <th className="text-left px-3 py-2 text-gray-400 font-medium">New Supplier (Yes/No)</th>
+              <th className="text-left px-3 py-2 text-gray-400 font-medium">Qualifying Documents Needed</th>
               <th className="w-6"></th>
             </tr>
           </thead>
@@ -65,17 +59,14 @@ export default function RawMaterialsPage({ product, onBack }: { product: Product
               <tr key={mat.id} className="border-b border-white/5 hover:bg-white/5">
                 <td className="px-3 py-1 text-gray-500">{mat.id}</td>
                 <td className="px-2 py-1"><input type="text" value={mat.ingredient} onChange={(e) => updateMaterial(mat.id, "ingredient", e.target.value)} className="dark-input w-full rounded px-2 py-1 text-xs" placeholder="Ingredient name" /></td>
+                <td className="px-2 py-1"><input type="text" value={mat.rmCode} onChange={(e) => updateMaterial(mat.id, "rmCode", e.target.value)} className="dark-input w-full rounded px-2 py-1 text-xs" placeholder="RM Code" /></td>
                 <td className="px-2 py-1"><input type="text" value={mat.supplier} onChange={(e) => updateMaterial(mat.id, "supplier", e.target.value)} className="dark-input w-full rounded px-2 py-1 text-xs" placeholder="Supplier" /></td>
-                <td className="px-2 py-1"><input type="text" value={mat.partNumber} onChange={(e) => updateMaterial(mat.id, "partNumber", e.target.value)} className="dark-input w-full rounded px-2 py-1 text-xs" placeholder="Part #" /></td>
-                <td className="px-2 py-1"><input type="text" value={mat.costPerKg} onChange={(e) => updateMaterial(mat.id, "costPerKg", e.target.value)} className="dark-input w-full rounded px-2 py-1 text-xs" placeholder="0.00" /></td>
-                <td className="px-2 py-1"><input type="text" value={mat.qtyPerBatch} onChange={(e) => updateMaterial(mat.id, "qtyPerBatch", e.target.value)} className="dark-input w-full rounded px-2 py-1 text-xs" placeholder="0" /></td>
-                <td className="px-2 py-1"><input type="text" value={mat.leadTimeDays} onChange={(e) => updateMaterial(mat.id, "leadTimeDays", e.target.value)} className="dark-input w-full rounded px-2 py-1 text-xs" placeholder="0" /></td>
                 <td className="px-2 py-1">
-                  <select value={mat.status} onChange={(e) => updateMaterial(mat.id, "status", e.target.value)} className="dark-select w-full rounded px-1 py-1 text-xs">
-                    {statusOptions.map((s) => <option key={s} value={s}>{s}</option>)}
+                  <select value={mat.newSupplier} onChange={(e) => updateMaterial(mat.id, "newSupplier", e.target.value)} className="dark-select w-full rounded px-1 py-1 text-xs">
+                    {newSupplierOptions.map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
                 </td>
-                <td className="px-2 py-1"><input type="text" value={mat.notes} onChange={(e) => updateMaterial(mat.id, "notes", e.target.value)} className="dark-input w-full rounded px-2 py-1 text-xs" placeholder="Notes" /></td>
+                <td className="px-2 py-1"><input type="text" value={mat.qualifyingDocsNeeded} onChange={(e) => updateMaterial(mat.id, "qualifyingDocsNeeded", e.target.value)} className="dark-input w-full rounded px-2 py-1 text-xs" placeholder="Documents needed" /></td>
                 <td className="px-1 py-1"><button onClick={() => deleteRow(mat.id)} className="text-red-500/50 hover:text-red-400">&times;</button></td>
               </tr>
             ))}
